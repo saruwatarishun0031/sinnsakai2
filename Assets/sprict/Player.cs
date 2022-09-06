@@ -1,18 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public float _speed;
+    private Rigidbody _rb;
+    [SerializeField] Image[] point1;
+    [SerializeField] GameObject pointParent;
+    int p;
+
+    const int winNum = 5;
     void Start()
     {
-        
+        _rb = GetComponent<Rigidbody>();
+        point1 = pointParent.GetComponentsInChildren<Image>();
+        p = 0;
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        
+        Move();
+        Attke();
+    }
+
+    void Move()
+    {
+        // 左右のキーの入力を取得
+        float x = Input.GetAxis("Horizontal") * _speed;
+        // 上下のキーの入力を取得
+        float z = Input.GetAxis("Vertical") * _speed;
+        _rb.AddForce(x, 0, z);
+        float mousex = Input.GetAxis("Mouse X");
+        transform.RotateAround(transform.position, transform.up, mousex);
+    }
+
+    void Attke()
+    {
+
+    }
+    
+    private void OnTriggerStay(Collider other)
+    {
+        if (Input.GetButtonDown("Fire1") && other.gameObject.tag == "Point")
+        {
+            point1[p].color = new Color(0, 255, 237, 255);
+            p++;
+            Destroy(other.gameObject);
+
+            if (p >= winNum)
+            {
+                GameManager.Instance.Winner();//シングルトン（呼び出し用）
+            }
+        }
     }
 }

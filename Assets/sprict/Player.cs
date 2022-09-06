@@ -57,4 +57,17 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "amo")
+        {
+            Death();
+        }
+    }
+
+    void Death()
+    {
+        Destroy(this.gameObject, 1.7f);
+    }
 }

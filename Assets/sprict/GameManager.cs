@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
     }
+    //シングルトン（ここまで）
     // Start is called before the first frame update
     void Start()
     {
@@ -57,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     public void Winner()
     {
-
+        Debug.Log("勝利");
     }
 
     public void LoadSceme(string sceneName)

@@ -7,11 +7,15 @@ public class Player : MonoBehaviour
 {
     public float _speed;
     private Rigidbody _rb;
-    [SerializeField] Image[] point1;
-    [SerializeField] GameObject pointParent;
-    int p;
-
+    [SerializeField,Tooltip("空のイメージ")] 
+    Image[] point1;
+    [SerializeField,Tooltip("親オブジェクト")] GameObject pointParent;
+    [SerializeField, Tooltip("弾")]
+    GameObject _amo;
+    public int p;
     const int winNum = 5;
+    //シングルトンパターン（簡易型、呼び出される）
+    public static Player Instance;
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -68,6 +72,8 @@ public class Player : MonoBehaviour
 
     void Death()
     {
+        this.gameObject.GetComponent<Player>().enabled = false;//動いて欲しくない
         Destroy(this.gameObject, 1.7f);
+        
     }
 }

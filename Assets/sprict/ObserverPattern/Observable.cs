@@ -18,7 +18,17 @@ public class Observable : IObservable<int>
     ///<summary>
     ///public関数を作り、それを必要なところに呼び出す
     ///<summary>
-    
+    public void SendNotice()
+    {
+        if (Player.Instance.p == 3)
+        {
+            observer.OnNext("Player1あと2つ");
+        }
+
+        //observer.OnNext("Player2あと2つ");
+        //observer.OnNext("Player3あと2つ");
+        //observer.OnNext("Player4あと2つ");
+    }
 }
 public class Unsubscriber : IDisposable
 {

@@ -5221,6 +5221,8 @@ MonoBehaviour:
   _speed: 8
   point1: []
   pointParent: {fileID: 1426416657}
+  _amo: {fileID: 0}
+  p: 0
 --- !u!43 &1133477817
 Mesh:
   m_ObjectHideFlags: 0

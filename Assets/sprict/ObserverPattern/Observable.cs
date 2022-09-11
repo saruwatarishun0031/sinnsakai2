@@ -20,17 +20,25 @@ public class Observable : IObservable<int>
     ///<summary>
     public void SendNotice()
     {
-        if (Player.Instance.p == 3)
+        //すべての発行先に対して1,2,3を発行する
+        foreach (var observer in m_observers)
         {
-            observer.OnNext("Player1あと2つ");
+            if (Player.Instance.p == 3)
+            {
+                observer.OnNext(2);
+            }
+            observer.OnNext(1);
+            observer.OnNext(2);
+            observer.OnNext(3);
         }
+        
 
         //observer.OnNext("Player2あと2つ");
         //observer.OnNext("Player3あと2つ");
         //observer.OnNext("Player4あと2つ");
     }
 }
-public class Unsubscriber : IDisposable
+ class Unsubscriber : IDisposable
 {
     //発行先リスト
     private List<IObserver<int>> m_observers;

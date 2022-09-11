@@ -15,19 +15,6 @@ public class GameManager : MonoBehaviour
 
     //シングルトンパターン（簡易型、呼び出される）
     public static GameManager Instance;
-
-    void Main()
-    {
-        Observer observer1 = new Observer("Player1");
-        Observer observer2 = new Observer("Player2");
-        Observer observer3 = new Observer("Player3");
-        Observer observer4 = new Observer("Player4");
-        Observable observable = new Observable();
-        IDisposable disposable1 = observable.Subscribe(observer1);
-        IDisposable disposable2 = observable.Subscribe(observer2);
-        IDisposable disposable3 = observable.Subscribe(observer3);
-        IDisposable disposable4 = observable.Subscribe(observer4);
-    }
     
     private void Awake()
     {
@@ -70,6 +57,21 @@ public class GameManager : MonoBehaviour
             startText.enabled = false;
         }
 
+    }
+
+    void Main()
+    {
+        Observer observer1 = new Observer("Player1");
+        Observer observer2 = new Observer("Player2");
+        Observer observer3 = new Observer("Player3");
+        Observer observer4 = new Observer("Player4");
+        Observable observable = new Observable();
+        IDisposable disposable1 = observable.Subscribe(observer1);
+        IDisposable disposable2 = observable.Subscribe(observer2);
+        IDisposable disposable3 = observable.Subscribe(observer3);
+        IDisposable disposable4 = observable.Subscribe(observer4);
+
+        observable.SendNotice();
     }
 
     public void Winner()

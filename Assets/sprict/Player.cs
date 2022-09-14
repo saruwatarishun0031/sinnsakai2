@@ -16,6 +16,18 @@ public class Player : MonoBehaviour
     const int winNum = 5;
     //シングルトンパターン（簡易型、呼び出される）
     public static Player Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
     void Start()
     {
         _rb = GetComponent<Rigidbody>();

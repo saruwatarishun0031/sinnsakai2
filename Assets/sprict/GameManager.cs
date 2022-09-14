@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField, Tooltip("カウントテキスト")]
     Text startText;
     public float s ;
+    Player _Player;
 
     //シングルトンパターン（簡易型、呼び出される）
     public static GameManager Instance;
@@ -31,12 +32,15 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
+
         startText = startText.GetComponent<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         StartCount();
         Main();
     }

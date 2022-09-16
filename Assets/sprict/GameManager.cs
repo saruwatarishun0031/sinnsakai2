@@ -10,9 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField, Tooltip("スタート")]
     Image start;
     [SerializeField, Tooltip("カウントテキスト")]
-    Text startText;
+    public Text startText;
     public float s ;
-    Player _Player;
 
     //シングルトンパターン（簡易型、呼び出される）
     public static GameManager Instance;
@@ -75,7 +74,12 @@ public class GameManager : MonoBehaviour
         IDisposable disposable3 = observable.Subscribe(observer3);
         IDisposable disposable4 = observable.Subscribe(observer4);
 
-        observable.SendNotice();
+
+        if (Player.Instance.p == 3)
+        {
+            observable.SendNotice();
+        }
+        
     }
 
     public void Winner()

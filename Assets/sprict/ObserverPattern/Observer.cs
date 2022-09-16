@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Observer :IObserver<int>
 {
@@ -24,5 +25,6 @@ public class Observer :IObserver<int>
     public void OnNext(int value)
     {
         Console.WriteLine($"{m_name}‚ª{value}‚ðŽó‚¯Žæ‚è‚Ü‚µ‚½");
+        GameManager.Instance.startText.text = $"{m_name}‚ª{value}‚ðŽó‚¯Žæ‚è‚Ü‚µ‚½";
     }
 }

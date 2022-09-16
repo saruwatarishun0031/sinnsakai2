@@ -23,10 +23,6 @@ public class Observable : IObservable<int>
         //‚·‚×‚Ä‚Ì”­sæ‚É‘Î‚µ‚Ä1,2,3‚ğ”­s‚·‚é
         foreach (var observer in m_observers)
         {
-            if (Player.Instance.p == 3)
-            {
-                observer.OnNext(2);
-            }
             observer.OnNext(1);
             observer.OnNext(2);
             observer.OnNext(3);

@@ -25,6 +25,6 @@ public class Observer :IObserver<int>
     public void OnNext(int value)
     {
         Console.WriteLine($"{m_name}‚ª{value}‚ðŽó‚¯Žæ‚è‚Ü‚µ‚½");
-        GameManager.Instance.startText.text = $"{m_name}‚ª{value}‚ðŽó‚¯Žæ‚è‚Ü‚µ‚½";
+        GameManager.Instance._Text.text = $"{m_name}‚ª{value}‚ðŽó‚¯Žæ‚è‚Ü‚µ‚½";
     }
 }

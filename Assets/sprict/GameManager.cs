@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     Image start;
     [SerializeField, Tooltip("カウントテキスト")]
     public Text startText;
+    [SerializeField, Tooltip("通知テキスト")]
+    public Text _Text;
     public float s ;
 
     //シングルトンパターン（簡易型、呼び出される）
@@ -31,15 +33,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
-
         startText = startText.GetComponent<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
         StartCount();
         Main();
     }
@@ -74,7 +73,7 @@ public class GameManager : MonoBehaviour
         IDisposable disposable3 = observable.Subscribe(observer3);
         IDisposable disposable4 = observable.Subscribe(observer4);
 
-
+        
         if (Player.Instance.p == 3)
         {
             observable.SendNotice();
@@ -89,7 +88,6 @@ public class GameManager : MonoBehaviour
 
     public void LoadSceme(string sceneName)
     {
-
         SceneManager.LoadScene(sceneName);
     }
 }

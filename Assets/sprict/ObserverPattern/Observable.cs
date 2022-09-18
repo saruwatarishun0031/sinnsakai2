@@ -27,11 +27,7 @@ public class Observable : IObservable<int>
             observer.OnNext(2);
             observer.OnNext(3);
         }
-        
-
-        //observer.OnNext("Player2‚ ‚Æ2‚Â");
-        //observer.OnNext("Player3‚ ‚Æ2‚Â");
-        //observer.OnNext("Player4‚ ‚Æ2‚Â");
+       
     }
 }
  class Unsubscriber : IDisposable

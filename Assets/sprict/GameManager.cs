@@ -13,6 +13,14 @@ public class GameManager : MonoBehaviour
     public Text startText;
     [SerializeField, Tooltip("通知テキスト")]
     public Text _Text;
+    [SerializeField, Tooltip("1")]
+    GameObject _player1;
+    [SerializeField, Tooltip("2")]
+    GameObject _player2;
+    [SerializeField, Tooltip("3")]
+    GameObject _player3;
+    [SerializeField, Tooltip("4")]
+    GameObject _player4;
     public float s ;
 
     //シングルトンパターン（簡易型、呼び出される）
@@ -40,6 +48,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         StartCount();
+        notice();
         Main();
     }
     public void StartCount()
@@ -61,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void Main()
+    void notice()
     {
         Observer observer1 = new Observer("Player1");
         Observer observer2 = new Observer("Player2");
@@ -69,16 +78,18 @@ public class GameManager : MonoBehaviour
         Observer observer4 = new Observer("Player4");
         Observable observable = new Observable();
         IDisposable disposable1 = observable.Subscribe(observer1);
-        IDisposable disposable2 = observable.Subscribe(observer2);
-        IDisposable disposable3 = observable.Subscribe(observer3);
-        IDisposable disposable4 = observable.Subscribe(observer4);
-
-        
         if (Player.Instance.p == 3)
         {
             observable.SendNotice();
         }
-        
+        IDisposable disposable2 = observable.Subscribe(observer2);
+        IDisposable disposable3 = observable.Subscribe(observer3);
+        IDisposable disposable4 = observable.Subscribe(observer4);
+
+    }
+    void Main()
+    {
+
     }
 
     public void Winner()

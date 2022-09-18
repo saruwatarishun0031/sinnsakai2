@@ -3525,6 +3525,10 @@ MonoBehaviour:
   start: {fileID: 649431348}
   startText: {fileID: 1498301546}
   _Text: {fileID: 1844079419}
+  _player1: {fileID: 1112003458}
+  _player2: {fileID: 0}
+  _player3: {fileID: 0}
+  _player4: {fileID: 0}
   s: 3
 --- !u!4 &522941154
 Transform:
@@ -6087,8 +6091,8 @@ GameObject:
   - component: {fileID: 1112003463}
   - component: {fileID: 1112003465}
   m_Layer: 3
-  m_Name: Player(tentative)
-  m_TagString: Untagged
+  m_Name: Player(tentative)1
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

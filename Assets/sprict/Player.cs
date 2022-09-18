@@ -87,6 +87,13 @@ public class Player : MonoBehaviour
             }
         }
     }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Point")
+        {
+            reset();
+        }
+    }
     void reset()
     {
         _getTime = 0;

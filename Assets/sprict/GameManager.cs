@@ -89,10 +89,11 @@ public class GameManager : MonoBehaviour
     }
     void Main()
     {
-
+           
     }
 
     public void Winner()
+
     {
         Debug.Log("Ÿ—˜");
     }

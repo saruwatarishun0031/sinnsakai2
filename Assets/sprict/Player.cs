@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public float _speed;
     private Rigidbody _rb;
     [SerializeField,Tooltip("空のイメージ")] 
     Image[] point1;
@@ -15,10 +14,15 @@ public class Player : MonoBehaviour
     GameObject _amo;
     [SerializeField, Tooltip("ゲットメーター")]
     Slider _pointSlider;
+    [SerializeField] int XYspeed;
+    [SerializeField] float rayDistance;
     public int p;
     const int winNum = 5;
     public float _getTime;
     public float _MaxGetTime;
+    public int NumberOfBullets;
+    [SerializeField] Transform muzzle;
+    public float speed = 1000;
     //シングルトンパターン（簡易型、呼び出される）
     public static Player Instance;
 
@@ -39,6 +43,7 @@ public class Player : MonoBehaviour
         point1 = pointParent.GetComponentsInChildren<Image>();
         p = 0;
         _getTime = 0;
+        NumberOfBullets = 6;
 
     }
 
@@ -49,21 +54,50 @@ public class Player : MonoBehaviour
         Move();
         Attke();
     }
+    private void FixedUpdate()
+    {
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
+        var direction = transform.forward;
+        Vector3 rayPosition = transform.position + new Vector3(0.0f, 0.0f, 0.0f);
+        Ray ray = new Ray(rayPosition, direction);
+        Debug.DrawRay(rayPosition, direction * rayDistance, Color.red);
+        Vector3 directionn = _rb.transform.forward * z + _rb.transform.right * x;
+        directionn *= XYspeed * Time.deltaTime;
+        _rb.AddForce(directionn, ForceMode.Impulse);
+    }
 
     void Move()
     {
-        // 左右のキーの入力を取得
-        float x = Input.GetAxis("Horizontal") * _speed;
-        // 上下のキーの入力を取得
-        float z = Input.GetAxis("Vertical") * _speed;
-        _rb.AddForce(x, 0, z);
+       
         float mousex = Input.GetAxis("Mouse X");
         transform.RotateAround(transform.position, transform.up, mousex);
     }
 
     void Attke()
     {
+        if (Input.GetKeyDown(KeyCode.Z)&& NumberOfBullets >= 1)
+        {
 
+            // 弾丸の複製
+            GameObject bullets = Instantiate(_amo) as GameObject;
+
+            Vector3 force;
+
+            force = this.gameObject.transform.forward * speed;
+
+            // Rigidbodyに力を加えて発射
+            bullets.GetComponent<Rigidbody>().AddForce(force);
+
+            // 弾丸の位置を調整
+            bullets.transform.position = muzzle.position;
+            NumberOfBullets -= 1;
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            NumberOfBullets = 6;
+        }
     }
     
     private void OnTriggerStay(Collider other)

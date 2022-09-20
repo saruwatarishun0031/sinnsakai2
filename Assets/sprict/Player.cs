@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public int NumberOfBullets;
     [SerializeField] Transform muzzle;
     public float speed = 1000;
+    public float _interval = 3;
     //シングルトンパターン（簡易型、呼び出される）
     public static Player Instance;
 
@@ -53,11 +54,17 @@ public class Player : MonoBehaviour
     {
         Move();
         Attke();
+        _interval -= Time.deltaTime;
     }
-    private void FixedUpdate()
+    
+    void Move()
     {
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+       
+        float mousex = Input.GetAxis("Mouse X");
+        transform.RotateAround(transform.position, transform.up, mousex);
+
+        float x = Input.GetAxis("Horizontal12");
+        float z = Input.GetAxis("Vertical12");
 
         var direction = transform.forward;
         Vector3 rayPosition = transform.position + new Vector3(0.0f, 0.0f, 0.0f);
@@ -68,16 +75,9 @@ public class Player : MonoBehaviour
         _rb.AddForce(directionn, ForceMode.Impulse);
     }
 
-    void Move()
-    {
-       
-        float mousex = Input.GetAxis("Mouse X");
-        transform.RotateAround(transform.position, transform.up, mousex);
-    }
-
     void Attke()
     {
-        if (Input.GetKeyDown(KeyCode.Z)&& NumberOfBullets >= 1)
+        if (Input.GetButtonDown("Fire1") && NumberOfBullets >= 1 && _interval <= 0)
         {
 
             // 弾丸の複製
@@ -93,10 +93,12 @@ public class Player : MonoBehaviour
             // 弾丸の位置を調整
             bullets.transform.position = muzzle.position;
             NumberOfBullets -= 1;
+            _interval = 2;
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
             NumberOfBullets = 6;
+            _interval = 4;
         }
     }
     

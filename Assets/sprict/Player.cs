@@ -60,11 +60,12 @@ public class Player : MonoBehaviour
     void Move()
     {
        
-        float mousex = Input.GetAxis("Mouse X");
-        transform.RotateAround(transform.position, transform.up, mousex);
+        float mousex = Input.GetAxisRaw("Axis 4");
+        transform.RotateAround(transform.position, transform.up, Input.GetAxis("Axis 4"));
 
-        float x = Input.GetAxis("Horizontal12");
-        float z = Input.GetAxis("Vertical12");
+        float x = Input.GetAxis("Axis 4");
+        float z = Input.GetAxis("Horizontal");
+        Debug.Log(z);
 
         var direction = transform.forward;
         Vector3 rayPosition = transform.position + new Vector3(0.0f, 0.0f, 0.0f);
@@ -77,7 +78,7 @@ public class Player : MonoBehaviour
 
     void Attke()
     {
-        if (Input.GetButtonDown("Fire1") && NumberOfBullets >= 1 && _interval <= 0)
+        if (Input.GetKey("joystick button 7") && NumberOfBullets >= 1 && _interval <= 0)
         {
 
             // ’eŠÛ‚Ì•¡»
@@ -95,7 +96,7 @@ public class Player : MonoBehaviour
             NumberOfBullets -= 1;
             _interval = 2;
         }
-        else if (Input.GetKeyDown(KeyCode.R))
+        else if (Input.GetKey("joystick button 0"))
         {
             NumberOfBullets = 6;
             _interval = 4;
@@ -104,7 +105,7 @@ public class Player : MonoBehaviour
     
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetButton("Fire1") && other.gameObject.tag == "Point")
+        if (Input.GetButton("joystick button 2") && other.gameObject.tag == "Point")
         {
             _pointSlider.gameObject.SetActive(true);
             _getTime += Time.deltaTime;

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Point
   - amo
+  - bullet
   layers:
   - Default
   - TransparentFX

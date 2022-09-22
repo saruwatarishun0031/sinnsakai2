@@ -13,15 +13,8 @@ public class GameManager : MonoBehaviour
     public Text startText;
     [SerializeField, Tooltip("通知テキスト")]
     public Text _Text;
-    [SerializeField, Tooltip("1")]
-    GameObject _player1;
-    [SerializeField, Tooltip("2")]
-    GameObject _player2;
-    [SerializeField, Tooltip("3")]
-    GameObject _player3;
-    [SerializeField, Tooltip("4")]
-    GameObject _player4;
     public float s ;
+    List<string> PlayerList = new List<string>();
 
     //シングルトンパターン（簡易型、呼び出される）
     public static GameManager Instance;
@@ -42,6 +35,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         startText = startText.GetComponent<Text>();
+        PlayerList.Add("Player1");
+        PlayerList.Add("Player2");
+        PlayerList.Add("Player3");
+        PlayerList.Add("Player4");
     }
 
     // Update is called once per frame
@@ -89,7 +86,12 @@ public class GameManager : MonoBehaviour
     }
     void Main()
     {
-           
+        int PlayerCount = PlayerList.Count;
+        Debug.Log(PlayerCount);
+        if (Player.Instance._Death == true)
+        {
+            PlayerList.Remove("Player1");
+        }
     }
 
     public void Winner()

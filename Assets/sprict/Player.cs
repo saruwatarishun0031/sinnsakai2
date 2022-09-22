@@ -11,19 +11,24 @@ public class Player : MonoBehaviour
     [SerializeField,Tooltip("親オブジェクト")] 
     GameObject pointParent;
     [SerializeField, Tooltip("弾")]
-    GameObject _amo;
+    GameObject _bullet;
     [SerializeField, Tooltip("ゲットメーター")]
     Slider _pointSlider;
-    [SerializeField] int XYspeed;
-    [SerializeField] float rayDistance;
-    public int p;
-    const int winNum = 5;
+    [SerializeField,Tooltip("Player1スピード")] 
+    int XYspeed;
+    [SerializeField,Tooltip("Playerの正面")] 
+    float rayDistance;
+    [SerializeField, Tooltip("負け")]
+    public bool _Death;
+    [SerializeField, Tooltip("銃口")]
+    Transform muzzle;
     public float _getTime;
     public float _MaxGetTime;
-    public int NumberOfBullets;
-    [SerializeField] Transform muzzle;
     public float speed = 1000;
     public float _interval = 3;
+    public int NumberOfBullets;
+    const int winNum = 5;
+    public int p;
     //シングルトンパターン（簡易型、呼び出される）
     public static Player Instance;
 
@@ -45,6 +50,7 @@ public class Player : MonoBehaviour
         p = 0;
         _getTime = 0;
         NumberOfBullets = 6;
+        _Death = false;
 
     }
 
@@ -59,12 +65,12 @@ public class Player : MonoBehaviour
     
     void Move()
     {
-       
+
         float mousex = Input.GetAxisRaw("Axis 4");
         transform.RotateAround(transform.position, transform.up, Input.GetAxis("Axis 4"));
 
-        float x = Input.GetAxis("Axis 4");
-        float z = Input.GetAxis("Horizontal");
+        float x = Input.GetAxis("Axis 1");
+        float z = Input.GetAxis("Axis 3");
         Debug.Log(z);
 
         var direction = transform.forward;
@@ -82,7 +88,7 @@ public class Player : MonoBehaviour
         {
 
             // 弾丸の複製
-            GameObject bullets = Instantiate(_amo) as GameObject;
+            GameObject bullets = Instantiate(_bullet) as GameObject;
 
             Vector3 force;
 
@@ -140,15 +146,16 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "amo")
+        if (other.gameObject.tag == "bullet")
         {
             Death();
         }
     }
 
-    void Death()
+    public void Death()
     {
         this.gameObject.GetComponent<Player>().enabled = false;//動いて欲しくない
         Destroy(this.gameObject, 1.7f);
+        _Death = true;
     }
 }

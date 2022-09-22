@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -13,6 +12,8 @@ public class GameManager : MonoBehaviour
     public Text startText;
     [SerializeField, Tooltip("通知テキスト")]
     public Text _Text;
+    [SerializeField, Tooltip("勝利UI")]
+    Canvas _Win;
     public float s ;
     List<string> PlayerList = new List<string>();
 
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
         StartCount();
         notice();
         Main();
+        Cursor.lockState = CursorLockMode.Locked;
     }
     public void StartCount()
     { 
@@ -80,8 +82,20 @@ public class GameManager : MonoBehaviour
             observable.SendNotice();
         }
         IDisposable disposable2 = observable.Subscribe(observer2);
+        if (Player2.Instance.p == 3)
+        {
+
+        }
         IDisposable disposable3 = observable.Subscribe(observer3);
+        if (Player3.Instance.p == 3)
+        {
+
+        }
         IDisposable disposable4 = observable.Subscribe(observer4);
+        if (Player4.Instance.p == 3)
+        {
+
+        }
 
     }
     void Main()
@@ -92,16 +106,29 @@ public class GameManager : MonoBehaviour
         {
             PlayerList.Remove("Player1");
         }
+        else if (Player2.Instance._Death == true)
+        {
+            PlayerList.Remove("Player2");
+        }
+        else if (Player3.Instance._Death == true)
+        {
+            PlayerList.Remove("Player3");
+        }
+        else if (Player4.Instance._Death == true)
+        {
+            PlayerList.Remove("Player4");
+        }
+
+        if (PlayerCount ==1)
+        {
+            Winner();
+        }
     }
 
     public void Winner()
 
     {
         Debug.Log("勝利");
-    }
-
-    public void LoadSceme(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
+        _Win.enabled = true;
     }
 }

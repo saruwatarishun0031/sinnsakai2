@@ -84,7 +84,7 @@ public class Player3 : MonoBehaviour
 
     void Attke()
     {
-        if (Input.GetKey("joystick button 7") && NumberOfBullets >= 1 && _interval <= 0)
+        if (Input.GetButtonDown("joystick button 7") && NumberOfBullets >= 1 && _interval <= 0)
         {
 
             // ’eŠÛ‚Ì•¡»
@@ -102,7 +102,7 @@ public class Player3 : MonoBehaviour
             NumberOfBullets -= 1;
             _interval = 2;
         }
-        else if (Input.GetKey("joystick button 0"))
+        else if (Input.GetButtonDown("joystick button 0"))
         {
             NumberOfBullets = 6;
             _interval = 4;
